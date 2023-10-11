@@ -1,0 +1,29 @@
+<%- include('partials/header.ejs'); -%>
+<div class="box" id="heading">
+  <h1><%= listTitle %></h1>
+</div>
+<div class="box">
+  <% newListItems.forEach(function(item){ %>
+    <form action="/all/delete" method="post">
+      <div class="item">
+        <input type="checkbox" onchange="this.form.submit()">
+        <input type="hidden" name="itemId" value="<%= item._id %>">
+        <p><%= item.name %></p>
+      </div>
+    </form>
+  <% }) %>
+
+  <form class="item" action="/all" method="post">
+    <input type="text" name="newItem" placeholder="New Item" autocomplete="off" />
+    <input type="hidden" name="list" value="All">
+    <button type="submit" name="list" value="<%=listTitle %>">+</button>
+  </form>
+</div>
+
+<script>
+  window.onload = function() {
+ document.getElementsByName("newItem")[0].focus();
+};
+</script>
+
+<%- include('partials/footer.ejs'); -%>
